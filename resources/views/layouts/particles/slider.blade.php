@@ -4,21 +4,20 @@
         display: inline-block;
         min-width: 1200px;
         margin: 16px;
-        margin: 0 auto;
+        /* margin: 0 auto; */
         transition: all .2s ease;
         left: 0px;
-        border-radius: 15px;
+        border-radius: 16px;
     }
 </style>
-<div id="slider" class=" w-[1200px]  mx-auto my-10 relative h-[600px]">
+<div id="slider" class=" w-[1200px]  mx-auto mt-10 relative h-[600px]">
     <div id="slider_wrapper" class=" relative flex ease-in duration-500">
         <img class="slider_img" src="img/oblivion.webp" alt="">
         <img class=" slider_img" src="img/jocker.webp" alt="">
         <img class="slider_img" src="img/HomeAlone.jpg" alt="">
-        
-    
+        <img class="slider_img" src="img/fantasticBeasts3.webp" alt="">
+        <img class="slider_img" src="img/harryPotter.webp" alt="">
     </div>
-
 
     <div class="relative z-20 top-64">
         <a class="float-left " onclick="previousSlide()">@include('components.icons.left')</a>
@@ -29,16 +28,16 @@
 </div>
 
 <script>
+    ////// BIG SLIDER //////
+
     let images = document.querySelectorAll('.slider_img')
     let slides = document.getElementsByClassName("item");
     let wrapper = document.getElementById("slider_wrapper");
     let src_mas = [];
 
-
     for (let i = 0; i < images.length; i++) {
         src_mas.push(images[i].src)
         images[i].remove()
-
     }
 
     let nextIndex = 0;
@@ -56,7 +55,6 @@
             nextIndex++
         }
         let images = document.getElementById('slider_wrapper')
-        console.log(images)
     }
 
     let offsetLeft = -1;
@@ -92,6 +90,7 @@
     }
 
     let offset = -1;
+
     function nextSlide() {
 
         let images = document.querySelectorAll('.slider_img')

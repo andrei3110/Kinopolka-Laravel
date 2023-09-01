@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('country');  
             $table->string('year'); 
             $table->string('description');
-            $table->string('genre');
+            $table->string('status');            
+            $table->bigInteger('category_id')->references('id')->on('categories');
         });
     }
 

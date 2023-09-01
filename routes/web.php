@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\CategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [ItemsController::class, 'index']);
+Route::get('/', [ItemsController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,5 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::get('/items/create', [ItemsController::class, 'create'])->name('items.create');
-Route::post('/store', [ItemsController::class, 'store'])->name('items.store');;
+Route::get('/genre/create', [ItemsController::class, 'genre_create'])->name('genre.create');
+Route::get('/categories/{id}', [CategoriesController::class, 'categories']);
+Route::post('/store', [ItemsController::class, 'store'])->name('items.store');
+Route::post('/genre/store', [ItemsController::class, 'genre_store'])->name('genre.store');
 require __DIR__.'/auth.php';

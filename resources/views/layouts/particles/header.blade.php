@@ -1,12 +1,11 @@
 <div class="max-w-screen-2xl mx-auto h-16 bg-[#DFDFDF]  shadow-xl shadow-gray-400/40">
-    <div class="float-left text-3xl my-3 mx-3 font-medium text-[#797979]">Kinopolka</div>
+    <a class="float-left text-3xl my-3 mx-3 font-medium text-[#797979]" href="/">Kinopolka</a>
    <div class="inline-block my-5 mx-10">
-        <div class="inline-block mx-2 font-medium text-[#8E8B8B]">фильмы</div>
-        <div class="inline-block mx-2 font-medium text-[#8E8B8B]">сериалы</div>
-        <div class="inline-block mx-2 font-medium text-[#8E8B8B]">мультфильмы</div>
+    @foreach ($categories as $category)
+    <a class="inline-block mx-2 font-medium text-[#8E8B8B]" href="/categories/{{$category->id}}">{{$category->title}}</a>
+    @endforeach
    </div>
     @if (Auth::user() == null)
-    
         <a class='float-right  inline-block mx-2 my-4' href="{{ route('login') }}">@include('components.icons.login')</a>
     @else
         <!-- Settings Dropdown -->

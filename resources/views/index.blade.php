@@ -1,73 +1,27 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="max-w-screen-2xl mx-auto min-h-screen overflow-hidden">
-        <div class="">
-            @include('layouts.particles.slider')
-            <div class="text-3xl text-[#A59D75] text-center font-medium">Популярное</div>
-            <div id="film_wrapper" class="relative py-2 flex mx-5 bg-gray-200   my-12  transparent duration-500">
-                @foreach ($items as $item)
-                <div class="film_object min-w-44 bg-gray-200 h-72  relative inline-block px-2 transparent duration-500">
-                    <div class="">
-                        
-                        <img class="w-44  h-60 rounded-xl" src="img/{{$item->image}}">
-                        <div class="text-center ">{{$item->name}}</div>
-                    </div>
+    <div class="max-w-screen-2xl mx-auto relative my-2  min-h-screen overflow-hidden">
+        @include('layouts.particles.slider')
+        <div class="text-3xl text-[#A59D75] text-center font-medium">Популярное</div>
+       
+            <x-slider :items="$items" :title="$popular" :index="1" :home="true" :count="7"/>              
+       
 
-                </div>
-                @endforeach
-                
-
-
-
-                <div class=" absolute w-full z-20 top-28">
-
-
-                    <a class="float-left m-2 " onclick="left()">@include('components.icons.left')</a>
-                    <a class="float-right m-2" onclick="right()">@include('components.icons.right')</a>
-
-                </div>
+        <div id="subscribe_content" class="relative   mx-5 bg-gray-200 my-12  transparent duration-500 overflow-hidden">
+            <div class="h-[500px]  bg-gray-600 overflow-hidden rounded-t-2xl">
+                <button class=" transition duration-700 absolute  text-white left-[600px] top-96 px-7 py-4 rounded-2xl shadow-2xl shadow-red-400/80 bg-red-600 z-20 font-medium hover:duration-700 hover:bg-red-500">Оформить подписку</button>
+                <img src="/img/subscribe.jpg" class="">
             </div>
-
+            <div class="">
+                <div class="w-full absolute text-center z-20 text-[#A59D75] font-medium text-3xl">
+                    Фильмы по подписке
+                </div>
+                    <x-slider :items="$subscribeItems" :title="$subscribe" :index="2" :home="true" :count="6"/> 
+            </div>
         </div>
-
+        <div class="text-3xl text-[#A59D75] text-center font-medium">Новинки</div>
+            <x-slider :items="$items" :title="$new" :index="3" :home="true" :count="7"/>        
+        
     </div>
 @endsection
-<script>
-    let index = 0;
-    let currentOffset = 0;
-    FilmOffset = 0;
-    function right() {
-        let film_wrapper = document.getElementById('film_wrapper')
-        let items = document.querySelectorAll(".film_object");
-        if(index < items.length - 7 ){
-            FilmOffset++
-       
-        currentOffset = 0;
-        currentOffset = -items[1].offsetWidth* FilmOffset;
-       
-        for (let i = 0; i < items.length; i++) {
-            items[i].style.left = currentOffset + 'px'; 
-        }
-        index ++
-        }
-        console.log(items.length)
-        console.log(index)
-    }
-
-    function left() {
-        if(index > 0){
-            FilmOffset--
-        let film_wrapper = document.getElementById('film_wrapper')
-        let items = document.querySelectorAll(".film_object");
-        currentOffset = 0;
-        currentOffset = -items[1].offsetWidth * FilmOffset;
-        
-        for (let i = 0; i < items.length; i++) {
-            items[i].style.left = currentOffset + 'px'; 
-        }
-        index --
-        }
-        
-    }
-</script>
