@@ -33,4 +33,6 @@ Route::get('/genre/create', [ItemsController::class, 'genre_create'])->name('gen
 Route::get('/categories/{id}', [CategoriesController::class, 'categories']);
 Route::post('/store', [ItemsController::class, 'store'])->name('items.store');
 Route::post('/genre/store', [ItemsController::class, 'genre_store'])->name('genre.store');
+Route::post('/filter', [CategoriesController::class, 'filter'])->name('filter');
+Route::get('/filter/view', [CategoriesController::class, 'filter_view'])->name('filter.view');
 require __DIR__.'/auth.php';

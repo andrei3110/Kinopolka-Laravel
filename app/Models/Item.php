@@ -15,22 +15,32 @@ class Item extends Model
     protected $fillable = [
         'name',
         'image',
-        'country',
-        'year',
         'description',
         'status',
-        'category_id',        
+        'category_id',
+        'year_id',        
     ];
 
 
     public function category(): BelongsTo
+    {   
+        return $this->belongsTo(Category::class);
+    }
+
+    public function year(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'item_genre');
+        return $this->belongsTo(Year::class);
     }
 
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'item_genre');
     }
+    
+    public function countries()
+    {
+        return $this->belongsToMany(Country::class, 'item_country');
+    }
+
 
 }

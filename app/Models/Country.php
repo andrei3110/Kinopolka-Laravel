@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Genre extends Model
+class Country extends Model
 {
     use HasFactory;
 
@@ -17,6 +17,6 @@ class Genre extends Model
 
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'item_genre');
+        return $this->belongsToMany(Item::class, 'item_country');
     }
 }

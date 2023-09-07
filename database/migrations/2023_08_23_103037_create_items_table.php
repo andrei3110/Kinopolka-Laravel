@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
-            $table->string('country');  
-            $table->string('year'); 
+            $table->string('image'); 
             $table->string('description');
             $table->string('status');            
             $table->bigInteger('category_id')->references('id')->on('categories');
+            $table->bigInteger('year_id')->references('id')->on('years');
         });
     }
 

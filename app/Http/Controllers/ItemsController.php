@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Genre;
+use App\Models\Country;
+use App\Models\Year;
 use Illuminate\Http\Request;
 
 class ItemsController extends Controller
@@ -27,10 +29,14 @@ class ItemsController extends Controller
     public function create()
     { 
         $categories = Category::all();
+        $years = Year::all();
         $genres = Genre::all();
+        $countries = Country::all();
         return view('items.create',[
             'categories'=>$categories,
             'genres'=>$genres,
+            'years'=>$years,
+            'countries'=>$countries,
         ]);
     }
     public function genre_create()
@@ -60,7 +66,6 @@ class ItemsController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'country' => 'required',
             'year' => 'required',
             'description' => 'required',
             'status' => 'required',
@@ -74,14 +79,14 @@ class ItemsController extends Controller
         $item = Item::create([
             'name' => $request->name,
             'image' => $name,
-            'country' => $request->country,
-            'year' => $request->year,
+            'year_id' => $request->year,
             'description' => $request->description,
             'status' => $request->status,            
             'category_id'=>$request->type
         ]);
         //sync - удаляет предыдущие записи // attach - создает новую запись
         $item->genres()->attach($request->check);
+        $item->countries()->attach($request->check_country);
         return redirect()->route('items.create');
     }
    

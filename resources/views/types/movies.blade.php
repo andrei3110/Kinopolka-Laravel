@@ -28,9 +28,18 @@
                 
             </form>
         </div>
-        <div class="text-3xl text-[#A59D75] text-center font-medium">Фильмы</div>
-
-        <x-slider :items="$items" :title="$BestBovik" :index="4" :home="false" :count="6" />
+        <div class="my-4 mx-auto relative w-[1372px]">
+            @foreach ($items as $item)
+                <div class="w-48 py-3 mt-1 inline-block  bg-gray-200  relative transparent duration-700 ">
+                    <div class="mx-3 relative ">
+                        <div class="">
+                            <img class="w-full h-auto rounded-xl" src="../img/{{ $item->image }}">
+                        </div>  
+                        <div class="text-center font-medium  text-gray-700 ">{{ $item->name }}</div>
+                        <div class=" font-medium  text-sm  text-gray-500 ">{{ $item->status }}</div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 @endsection
-
