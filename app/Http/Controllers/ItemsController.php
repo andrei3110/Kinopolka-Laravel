@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Country;
+use App\Models\Participant;
 use App\Models\Year;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class ItemsController extends Controller
     public function index()
     {
         $items = Item::all();
+        $participants = Participant::all();
         $categories = Category::all();
 
         $subscribeItems = Item::where('status', 'подписка')->get(); 
@@ -24,12 +26,14 @@ class ItemsController extends Controller
             'items' => $items,
             'categories'=>$categories,
             'subscribeItems'=>$subscribeItems,
+            'participants'=>$participants,
         ]);
     }
     public function create()
     { 
         $categories = Category::all();
         $years = Year::all();
+        $participants = Participant::all();
         $genres = Genre::all();
         $countries = Country::all();
         return view('items.create',[
@@ -37,6 +41,7 @@ class ItemsController extends Controller
             'genres'=>$genres,
             'years'=>$years,
             'countries'=>$countries,
+            'participants'=>$participants,
         ]);
     }
     public function genre_create()
@@ -50,13 +55,18 @@ class ItemsController extends Controller
     public function genre_store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
+            'name' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
-        Genre::create([
-            'title' => $request->title,
-        ]);
+        $name = $request->file('image')->getClientOriginalName();
+        
+        $request->image->move(public_path('actorsImg'),$name);
 
+        Participant::create([
+            'name' => $request->name,
+            'image' => $name,
+        ]);
         return redirect()->route('genre.create');
     }
 
@@ -87,6 +97,7 @@ class ItemsController extends Controller
         //sync - удаляет предыдущие записи // attach - создает новую запись
         $item->genres()->attach($request->check);
         $item->countries()->attach($request->check_country);
+        $item->participants()->attach($request->check_participants);
         return redirect()->route('items.create');
     }
    

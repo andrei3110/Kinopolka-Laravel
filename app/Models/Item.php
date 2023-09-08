@@ -42,5 +42,9 @@ class Item extends Model
         return $this->belongsToMany(Country::class, 'item_country');
     }
 
+    public function participants()
+    {
+        return $this->belongsToMany(Participant::class, 'item_participant');
+    }
 
 }

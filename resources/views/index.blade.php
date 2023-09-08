@@ -24,6 +24,6 @@
         </div>
         <div class="text-3xl text-[#A59D75] text-center font-medium">Новинки</div>
         <x-slider :items="$items" :title="$new" :index="3" :home="true" :count="7" />
-
+       
     </div>
 @endsection
