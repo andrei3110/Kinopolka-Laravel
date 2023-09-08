@@ -30,6 +30,7 @@
         </div>
         <div class="my-4 mx-auto relative w-[1372px]">
             @foreach ($items as $item)
+            <a href="/description/{{$item->id}}">
                 <div class="w-48 py-3 mt-1 inline-block  bg-gray-200  relative transparent duration-700 ">
                     <div class="mx-3 relative ">
                         <div class="">
@@ -39,6 +40,8 @@
                         <div class=" font-medium  text-sm  text-gray-500 ">{{ $item->status }}</div>
                     </div>
                 </div>
+            </a>
+                
             @endforeach
         </div>
     </div>
