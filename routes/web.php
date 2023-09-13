@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DescriptionController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/items/create', [ItemsController::class, 'create'])->name('items.create');
 Route::get('/genre/create', [ItemsController::class, 'genre_create'])->name('genre.create');
 Route::get('/categories/{id}', [CategoriesController::class, 'categories']);
-Route::get('/description/{id}', [DescriptionController::class, 'description']);
+Route::get('/description/{id}', [DescriptionController::class, 'description'])->name('description');
+Route::get('/rating/{id}', [RatingController::class, 'rating']);
+Route::get('/rating_update/{id}', [RatingController::class, 'update']);
 Route::post('/store', [ItemsController::class, 'store'])->name('items.store');
 Route::post('/genre/store', [ItemsController::class, 'genre_store'])->name('genre.store');
 Route::post('/filter', [CategoriesController::class, 'filter'])->name('filter');

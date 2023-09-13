@@ -8,6 +8,7 @@ use App\Models\Genre;
 use App\Models\Country;
 use App\Models\Participant;
 use App\Models\Year;
+use App\Models\Rate;
 use Illuminate\Http\Request;
 
 class ItemsController extends Controller
@@ -17,7 +18,7 @@ class ItemsController extends Controller
         $items = Item::all();
         $participants = Participant::all();
         $categories = Category::all();
-
+       
         $subscribeItems = Item::where('status', 'подписка')->get(); 
         return view('index', [
             'popular'=>"popular",

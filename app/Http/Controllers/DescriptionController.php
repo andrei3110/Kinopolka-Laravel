@@ -8,7 +8,9 @@ use App\Models\Genre;
 use App\Models\Participant;
 use App\Models\Country;
 use App\Models\Year;
+use App\Models\Rate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DescriptionController extends Controller
 {
@@ -16,6 +18,7 @@ class DescriptionController extends Controller
     {
         $id = $request->route('id');
         $categories = Category::all();
+        
         $item = Item::find($id);
         $year = Year::find($item->year_id);
         $genres = [];
@@ -43,15 +46,16 @@ class DescriptionController extends Controller
             // echo $object;
             array_push($countries, $object->title);
         }
-
-        // echo $genres;
+        $rates= Rate::all();
         return view('items.show', [
             'categories' => $categories,
             'item' => $item,
+            'rates'=>$rates,
             'year' => $year,
             'genres' => $genres,
             'countries' => $countries,
             'participants' => $participants,
+            
         ]);
     }
 }
