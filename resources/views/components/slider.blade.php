@@ -1,9 +1,9 @@
-@props(['items', 'title', 'index', 'home', 'count'])
-<div class="flex relative mt-4  w-full h-[450px] bg-gray-200 transparent duration-500 overflow-hidden">
+@props(['items', 'title', 'index', 'home', 'count','average'])
+<div class="flex relative mt-4  w-full h-[450px] bg-slate-50  transparent duration-500 overflow-hidden">
     @foreach ($items as $item)
     <a href="/description/{{$item->id}}">
         <div
-        class="{{ $title }} min-w-44 flex  bg-gray-200 h-full absolute  items-center  transparent duration-200 ">
+        class="{{ $title }} min-w-44 flex  bg-slate-50  h-full absolute  items-center  transparent duration-200 ">
         <div class="mx-3 absolute ">
             @if ($home == true)
                 <div class="group rounded-xl duration-500 hover:-translate-y-1 hover:scale-105">
@@ -11,6 +11,14 @@
                         class="duration-200 absolute z-20 right-0 m-4 opacity-0 group-hover:block group-hover:duration-200  group-hover:opacity-100">
                         @include('components.icons.bookmark')
                     </button>
+                    <button
+                    class="duration-200 absolute z-20 right-0 my-12 mx-4 text-gray-300 opacity-0 group-hover:block group-hover:duration-200  group-hover:opacity-100">
+                    @include('components.icons.star')
+                </button>
+                    <div
+                        class="duration-200 mt-5 ml-4 font-normal text-5xl absolute whitespace-nowrap w-full px-2 text-gray-300 opacity-0 z-20 truncate overflow-visible   group-hover:duration-200 group-hover:opacity-100">
+                       {{$average}}
+                    </div>
                     <div
                         class="duration-200 absolute z-20 text-gray-300 px-2 bottom-2 text-sm opacity-0 group-hover:block group-hover:duration-200 font-medium  group-hover:opacity-100">
                         {{ $item->year->title }}</div>

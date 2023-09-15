@@ -2,7 +2,7 @@
 
     <div class="w-56 inline-block">
         <div class="relative w-56 " onclick="showCheckboxes{{ $title }}()">
-            <select class="w-56 bg-gray-300 text-gray-500 font-medium border-none text-center">
+            <select class="w-56 bg-slate-200  text-gray-500 font-medium border-none text-center">
                 <option class="w-full">{{ $title }}</option>
             </select>
             <div class="absolute left-0 right-0 top-0 bottom-0"></div>

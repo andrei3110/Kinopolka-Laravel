@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Rate extends Model
 {
     use HasFactory;
-
     public $timestamps = false;
 
     protected $fillable = [
         'rate',
         'item_id',
-        'user_id',
+        'user_id',      
     ];
 }

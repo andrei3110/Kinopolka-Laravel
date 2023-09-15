@@ -5,7 +5,7 @@
         @include('layouts.particles.slider')
         <div class="text-3xl text-[#A59D75] text-center font-medium">Популярное</div>
 
-        <x-slider :items="$items" :title="$popular" :index="1" :home="true" :count="7" />
+        <x-slider :items="$items" :title="$popular" :index="1" :home="true" :count="7" :average="$average"/>
         
 
         <div id="subscribe_content" class="relative   mx-5 bg-gray-200 my-12  transparent duration-500 overflow-hidden">
@@ -19,11 +19,11 @@
                 <div class="w-full absolute text-center z-20 text-[#A59D75] font-medium text-3xl">
                     Фильмы по подписке
                 </div>
-                <x-slider :items="$subscribeItems" :title="$subscribe" :index="2" :home="true" :count="6" />
+                <x-slider :items="$subscribeItems" :title="$subscribe" :index="2" :home="true" :count="6" :average="$average"/>
             </div>
         </div>
         <div class="text-3xl text-[#A59D75] text-center font-medium">Новинки</div>
-        <x-slider :items="$items" :title="$new" :index="3" :home="true" :count="7" />
+        <x-slider :items="$items" :title="$new" :index="3" :home="true" :count="7" :average="$average"/>
        
     </div>
 @endsection

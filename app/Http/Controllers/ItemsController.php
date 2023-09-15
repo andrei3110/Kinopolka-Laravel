@@ -20,6 +20,19 @@ class ItemsController extends Controller
         $categories = Category::all();
        
         $subscribeItems = Item::where('status', 'подписка')->get(); 
+        $data = Rate::all();
+
+        $summ = 0;
+        $count = 0 ;
+
+        for($i=0; $i < count($data); $i++) { 
+            $summ = $summ + $data[$i]->rate;
+            $count = $i + 1;
+        }
+
+        $average = $summ / $count;
+        $rounded = round($average, 1);
+
         return view('index', [
             'popular'=>"popular",
             'subscribe'=>"subscribe",
@@ -28,6 +41,7 @@ class ItemsController extends Controller
             'categories'=>$categories,
             'subscribeItems'=>$subscribeItems,
             'participants'=>$participants,
+            'average'=>$rounded,
         ]);
     }
     public function create()

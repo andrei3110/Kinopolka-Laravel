@@ -72,21 +72,33 @@
 
 
             </div>
+            <div class="w-[1035px] mx-auto h-24">
+                <div class="relative w-64 h-[82px] text-xl text-black rounded-xl bg-slate-100" id="averange">
+                    <div class="absolute top-3 ml-5">рейтинг:</div>
+                    <div class=" w-20 text-center py-5 my-1 mr-1 bg-[#A59D75] text-white font-semibold rounded-lg relative float-right text-3xl" id="averangeText">
+                        {{ $average }}
+                    </div>
 
-            <div class="text-center text-2xl font-medium text-gray-700">актеры:</div>
+                    <div class="relative top-12 ml-5 text-sm" id="voices">
+                        всего голосов:<span class="textVoises" id="textViews">
+                            {{ $voices }}
+                        </span></div>
+                </div>
+    
+            </div>
+            
+            <div class=" relative text-center text-2xl font-medium text-gray-700">актеры:</div>
             <div class="my-12 overflow-hidden h-48 w-[1035px] mx-auto">
 
                 @foreach ($participants as $participant)
                     <div class="w-36 relative h-48 inline-block ">
-                        <img class=" w-36 h-36 rounded-full bg-red-500 " src="../actorsImg/{{ $participant->image }}">
+                        <img class=" w-36 h-36 rounded-full" src="../actorsImg/{{ $participant->image }}">
                         <div class="relative  h-12  text-center ">
                             <div class="relative text-gray-700 top-5 truncate">{{ $participant->name }}</div>
                         </div>
                     </div>
                 @endforeach
             </div>
-            Рейтинг:
-
 
             @if ($rates != null)
                 <div class=" relative mx-auto my-4  text-center  max-w-6xl  bottom-2" id="rates-wrapper">
@@ -98,16 +110,14 @@
                     <div id="rate-update" class="hidden">
                     </div>
                     <div id="rate-create">
-                    <form action="/rating/{{ $item->id }}">
-                        <div 
-                            class="grid text-center place-items-center py-4 bg-slate-50 relative mx-auto my-4 items-center justify-center flex-col  max-w-6xl"
+                        <div class="grid text-center place-items-center py-4 bg-slate-50 relative mx-auto my-4 items-center justify-center flex-col  max-w-6xl"
                             id="container">
                             <div id="star-widget" class="text-center items-center justify-center">
                                 <ul class="grid text-center w-[300px] grid-cols-5">
                                     @for ($i = 1; $i < 6; $i++)
                                         <li class="m-0">
                                             <input type="radio" name="rate" id="rate-{{ $i }}"
-                                                class=" hidden peer" value="{{ $i }}" required>
+                                                class="rate hidden peer" value="{{ $i }}" required>
                                             <label for="rate-{{ $i }}"
                                                 class="float-right text-2xl  text-gray-500 p-2 peer-checked:text-blue-600">@include('components.icons.star')</label>
                                         </li>
@@ -115,11 +125,12 @@
                                 </ul>
                             </div>
                             <div class="p-3 text-xl text-gray-600 my-8 font-medium  w-full text-center mb-2 bg-slate-200">
-                                <input type="submit" value="send">
+
+                                <button onclick="rate(`{{ route('api.item.rate') }}`)">Send</button>
                             </div>
                         </div>
-                    </form>
-                </div>
+
+                    </div>
                 </div>
             @endif
 
@@ -140,5 +151,51 @@
     function Edit() {
         document.getElementById('rate-create').style.display = "block";
         document.getElementById('rate-thanks').style.display = "none";
+    }
+
+    function rate(action) {
+        const rate = document.querySelectorAll('input[name="rate"]');
+        let checkedRadio = 0;
+        for (let i = 0; i < rate.length; i++) {
+            if (rate[i].checked) {
+                checkedRadio = rate[i].value
+                break;
+            }
+        }
+        axios.post(
+            action, {
+                rate: Number(checkedRadio),
+                item_id: {{ $item->id }},
+                user_id: {{ Auth::user()->id }}
+            }, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+        ).then((response) => {
+
+            let rate = response.data
+            if (rate[0] == true) {
+                document.getElementById('rate-create').style.display = "none";
+                document.getElementById('rate-thanks').style.display = "block";
+            }
+
+            const averange = document.getElementById('averange')
+            
+            averange.innerHTML = `
+            <div class="absolute top-3 ml-5">рейтинг:</div>
+                    <div class=" w-20 text-center py-5 my-1 mr-1 bg-[#A59D75] text-white font-semibold rounded-lg relative float-right text-3xl" id="averangeText">
+                        ${rate[1]}
+                    </div>
+                    <div class="relative top-12 ml-5 text-sm" id="voices">
+                        всего голосов:<span class="textVoises" id="textViews">
+                            ${rate[2]}
+                        </span></div>
+            `
+        }).catch(function(error) {
+
+
+        })
     }
 </script>

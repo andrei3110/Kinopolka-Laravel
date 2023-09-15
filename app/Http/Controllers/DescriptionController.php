@@ -43,10 +43,23 @@ class DescriptionController extends Controller
         foreach ($item->countries as  $country) {
 
             $object = Country::find($country->pivot->country_id);
-            // echo $object;
+            
             array_push($countries, $object->title);
         }
         $rates= Rate::all();
+        $data = Rate::all();
+
+        $summ = 0;
+        $count = 0 ;
+
+        for($i=0; $i < count($data); $i++) { 
+            $summ = $summ + $data[$i]->rate;
+            $count = $i + 1;
+        }
+
+        $average = $summ / $count;
+        $rounded = round($average, 1);
+
         return view('items.show', [
             'categories' => $categories,
             'item' => $item,
@@ -55,6 +68,8 @@ class DescriptionController extends Controller
             'genres' => $genres,
             'countries' => $countries,
             'participants' => $participants,
+            'average'=>$rounded,
+            'voices'=>$count,
             
         ]);
     }

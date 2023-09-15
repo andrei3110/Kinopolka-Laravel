@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('rate');
             $table->integer('item_id');
-            $table->string('user_id');
+            $table->integer('user_id');
         });
     }
 

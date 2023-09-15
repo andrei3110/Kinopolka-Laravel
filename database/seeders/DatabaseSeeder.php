@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $categories = ['фильмы', 'сериалы', 'мультфильмы'];
         $genres = ['боевик', 'фантастика', 'романтика', 'приключения'];
+        $countries = ['США', 'Великобритания', 'Турция', 'Россия'];
         $years = ['2019', '2020', '2021', '2022'];
         $participants = [
             ['Брэд Питт', 'Brad-pitt.jpg'],
@@ -36,6 +37,11 @@ class DatabaseSeeder extends Seeder
         foreach ($categories as $category) {
             DB::table('categories')->insert([
                 'title' => $category,
+            ]);
+        }
+        foreach ($countries as $country) {
+            DB::table('countries')->insert([
+                'title' => $country,
             ]);
         }
         foreach ($genres as $genre) {

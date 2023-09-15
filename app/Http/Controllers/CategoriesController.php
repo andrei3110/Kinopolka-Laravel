@@ -60,7 +60,6 @@ class CategoriesController extends Controller
         if ($request->checkFilter_years != null || $request->checkFilter_genres != null || $request->checkFilter_countries != null) {
             foreach ($items as $item) {
                 if ($item->category_id == $request->id) {
-                    echo $item->participants;
                     if ($request->checkFilter_years != null) {
                         foreach ($request->checkFilter_years as $year) {
                             if ($item->year_id == $year) {
@@ -74,7 +73,7 @@ class CategoriesController extends Controller
                             foreach ($item->genres as $genre) {
                                 if ($genre->pivot->genre_id == $check_genre) {
                                     if ($item->category_id == $request->category_id) {
-                                        echo "abcd";
+                                     
                                     }
                                     array_push($checkItem, $item);
                                     break 2;
@@ -86,7 +85,6 @@ class CategoriesController extends Controller
                             foreach ($item->countries as $country) {
                                 if ($country->pivot->country_id == $check_country) {
                                     if($item->category_id == $request->category_id){
-                                        echo "==12345absc==";
                                     }
                                     array_push($checkItem, $item);
                                     break 2;

@@ -1,8 +1,8 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ItemsController;
+use App\Http\Controllers\Api\RatingController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/items', [ItemsController::class, 'index'])
         ->name('api.item.index');
-
+Route::post('/rating', [RatingController::class, 'rating'])
+        ->name('api.item.rate');
